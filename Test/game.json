@@ -1,0 +1,15 @@
+{
+    "deviceOrientation": "portrait",
+    "subpackages": [
+        {
+            "name": "pak1",
+            "root": "pak1/"
+        },
+        {
+            "name": "pak2",
+            "root": "pak2.js"
+        }
+    ],
+    "workers": "workers",
+    "openDataContext": "src/myOpenDataContext"
+}
