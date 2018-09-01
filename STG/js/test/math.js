@@ -78,3 +78,62 @@
 // export default function(x){
 // 	return x * x;
 // }
+
+// function getName(name){
+//     console.log(name);
+// }
+
+// export function getInfo(info){
+//     getName(info);
+// }
+
+// export default function(){
+//     console.log('hello');
+// }
+
+// function a(){
+//     console.log('hello');
+// };
+// export {a as default};
+
+
+// var a = function() {
+//     console.log('hello')
+// };
+// export {a as fun};
+
+
+// exports.x = 1;
+// console.log(exports);
+// console.log(module.exports);
+// console.log(exports === module.exports);
+// console.log(exports == module.exports);
+// console.log(module);
+
+// exports = new Object();
+// console.log(exports);
+// console.log(module.exports);
+// console.log(exports === module.exports);
+// console.log(exports == module.exports);
+// console.log(module);
+
+
+// function f1(){
+//     console.log('hello, f1');
+// }
+
+// function f2() {
+//     console.log('hello, f2');
+// }
+
+// function f3() {
+//     console.log('hello, f3');
+// }
+
+// export { f1, f2};
+// export * from 'math';
+
+// console.log('hello');
+
+// const foo = Math.sqrt(2);
+// export default foo ;
