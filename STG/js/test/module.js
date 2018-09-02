@@ -61,3 +61,77 @@
 // console.log(math.default);
 // console.log(math.default == d);
 // console.log(math.default === d);
+
+
+// import * as math from 'math';
+// console.log(math.firstName);
+// console.log(math.lastName);
+// console.log(math.year);
+
+// import {multiply} from 'math';
+// console.log(multiply(2, 3));
+
+// import { Func1, Func2 } from 'math';
+// Func1();
+// Func2();
+
+// setTimeout(() => console.log(str), 2000);
+// import { str } from 'math';
+
+// import { 'f' + 'oo' } from 'math';
+
+// let math = 'math';
+// import * as m from math;
+
+// let x = 1;
+// if(x === 1){
+//     import { foo } from 'math';
+// }
+// else{
+//     import { foo } from 'math';
+// }
+
+// import { circleArea, rectArea } from 'math';
+// console.log("圆的面积是 " + circleArea(5));
+// console.log("矩形的面积是 " + rectArea(5, 6));
+
+// import * as area from 'math';
+// console.log(area.circleArea(5));
+// console.log(area.rectArea(5, 6));
+
+// import * as math from 'math';
+// math.default();
+
+// import customName from './math';
+// customName();
+
+// import { default as d } from 'math';
+// console.log(d(3, 4));
+
+// import MyClass from 'math';
+// let o = new MyClass();
+// console.log(o, typeof o);
+
+// import { foo, bar } from 'math';
+// export { foo, bar };
+
+// export { foo, bar } from 'math';
+
+// import * as math from 'math';
+// console.log(math.A);
+// console.log(math.B);
+// math.A = 3;
+// console.log(math.A);
+
+// import { A, B } from 'math';
+// console.log(A, B);
+// // A = 3;
+// // console.log(A);
+
+// var math = require('math');
+// math.func1();
+// math.func2();
+
+// var { func1, func2 } = require('math');
+// func1();
+// func2();

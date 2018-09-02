@@ -137,3 +137,83 @@
 
 // const foo = Math.sqrt(2);
 // export default foo ;
+
+
+// export var firstName = 'Michael';
+// export var lastName = 'Jackson';
+// export var year = 1998;
+
+// var firstName = 'Micheal';
+// var lastName = 'Jackson';
+// var year = 1958;
+// export { firstName, lastName, year };
+
+// export function multiply(x, y){
+//     return x * y;
+// }
+
+// function Module1(){
+//     console.log('m1');
+// }
+// function Module2() {
+//     console.log('m2');
+// }
+// export { Module1 as Func1, Module2 as Func2};
+
+// export var str = 'hello';
+// setTimeout(() => str = 'world', 1000);
+// console.log(str);
+
+// function foo(){
+//     export default 'bar';
+// }
+// foo();
+
+// export function circleArea(r){
+//     return Math.PI * r * r;
+// }
+
+// export function rectArea(w, h){
+//     return w * h;
+// }
+
+// export default function(){
+//     console.log('foo');
+// }
+
+// export default function foo(){
+//     console.log('hello world');
+// }
+
+// function foo(){
+//     console.log('hello world');
+// }
+
+// export default foo;
+
+// function add(x, y){
+//     return x + y;
+// }
+// export { add as default};
+
+// export var a = 1;
+
+// var a = 1;
+// export default a;
+
+// export default var a = 1;
+
+// export default class {};
+
+// var foo = 'foo', bar = 'bar';
+// export { foo, bar };
+
+// export const A = 1;
+// export const B = 2;
+
+
+// var func1 = () => console.log('func1');
+// var func2 = () => console.log('func2');
+
+// exports.func1 = func1;
+// exports.func2 = func2;
