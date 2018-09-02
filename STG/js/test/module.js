@@ -135,3 +135,8 @@
 // var { func1, func2 } = require('math');
 // func1();
 // func2();
+
+var math = require('./math');
+console.log(math.counter);
+math.incCounter();
+console.log(math.counter);

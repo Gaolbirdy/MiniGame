@@ -217,3 +217,22 @@
 
 // exports.func1 = func1;
 // exports.func2 = func2;
+
+
+var counter = 3;
+function incCounter(){
+    counter++;
+}
+incCounter();   // 4
+// module.exports = {
+//     counter: counter,
+//     incCounter: incCounter,
+// };
+
+module.exports = {
+    get counter(){
+        return counter;
+    },
+    incCounter: incCounter,
+}
+incCounter();   // 5
