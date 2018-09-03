@@ -219,20 +219,76 @@
 // exports.func2 = func2;
 
 
-var counter = 3;
-function incCounter(){
-    counter++;
-}
-incCounter();   // 4
+// var counter = 3;
+// function incCounter(){
+//     counter++;
+// }
+// incCounter();   // 4
+// // module.exports = {
+// //     counter: counter,
+// //     incCounter: incCounter,
+// // };
+
 // module.exports = {
-//     counter: counter,
+//     get counter(){
+//         return counter;
+//     },
 //     incCounter: incCounter,
+// }
+// incCounter();   // 5
+
+// export let counter = 3;
+// export function incCounter(){
+// 	counter++;
+// }
+// incCounter();	// 4
+
+// export var foo = 'bar';
+// setTimeout(() => foo = 'baz', 500);
+
+// export let obj = {};
+
+// function C() {
+// 	this.sum = 0;
+// 	this.add = function() {
+// 		this.sum += 1;
+// 	};
+// 	this.show =  function() {
+// 		console.log(this.sum);
+// 	};
+// }
+
+// export let c = new C();
+
+// module.exports = {
+// 	foo: 'hello',
+// 	bar: 'world'
 // };
 
-module.exports = {
-    get counter(){
-        return counter;
-    },
-    incCounter: incCounter,
-}
-incCounter();   // 5
+// module.exports = null;
+
+// module.exports = function two() {
+// 	return 2;
+// };
+
+// module.exports = 123;
+// console.log(module.exports);
+// setTimeout(_ => module.exports = null, 500);
+// setTimeout(() => console.log(module.exports), 1000);
+
+// module.exports = () => {};
+
+// let foo = { bar: 'my-default'};
+// export default foo;
+
+// export let foo = { bar: 'my-default' };
+// export { foo as bar };
+// export function f() {};
+// export class c {};
+
+
+// exports.done = false;
+// var a = require('./module.js');
+// console.log('在 math.js 之中, a.done = ', a.done);
+// exports.done = true;
+// console.log('math.js 执行完毕');

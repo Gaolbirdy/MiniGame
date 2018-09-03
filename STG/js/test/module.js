@@ -136,7 +136,65 @@
 // func1();
 // func2();
 
-var math = require('./math');
-console.log(math.counter);
-math.incCounter();
-console.log(math.counter);
+// var math = require('./math');
+// console.log(math.counter);
+// math.incCounter();
+// console.log(math.counter);
+
+// import { counter, incCounter } from 'math';
+// console.log(counter);
+// incCounter();
+// console.log(counter);
+
+// import { foo } from 'math';
+// console.log(foo);
+// setTimeout(() => console.log(foo), 500);
+
+// import { obj } from 'math';
+// obj.prop = 123;
+// obj = {};
+
+// import { c } from 'math';
+// c.add();
+
+// import baz from 'math';
+// import { default as baz } from 'math';
+// import * as baz from 'math';
+// console.log(baz);
+
+// import foo from 'math';
+// console.log(foo);
+
+// import * as bar from 'math';
+// console.log(bar);
+// console.log(bar.default);
+
+// import foo from 'math';
+// console.log(foo());
+
+// import * as bar from 'math';
+// console.log(bar);
+// // console.log(bar());
+// console.log(bar.default());
+
+// import foo from 'math';
+// console.log(foo);
+// setTimeout(() => console.log(foo), 2000);
+
+// import * as math from 'math';
+// const app = math.default();
+
+// import math from 'math';
+// const app = math();
+
+// const es_namespace = await import('./math.mjs');
+// console.log(es_namespace.default);
+
+// const es_namespace = await improt('./math');
+
+
+// exports.done = false;
+// var b = require('./math.js');
+// console.log('在 module.js 之中, b.done = ', b.done);
+// exports.done = true;
+// console.log('module.js 执行完毕');
