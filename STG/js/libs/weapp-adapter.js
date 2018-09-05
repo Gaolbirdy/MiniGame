@@ -1,5 +1,5 @@
 (function (modules) {	// webpackBootstrap
-	// modules 数组
+	// modules 各模块的数组
 	
 	// The module cache，模块缓存对象
 	var installedModules = {};
