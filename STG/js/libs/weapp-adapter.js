@@ -37,7 +37,7 @@
 	// __webpack_public_path__
 	__webpack_require__.p = "";
 
-	// Load entry module and return exports	
+	// Load entry module and return exports， 从参数modules[0]开始执行require
 	return __webpack_require__(0);
 })
 ([]);
