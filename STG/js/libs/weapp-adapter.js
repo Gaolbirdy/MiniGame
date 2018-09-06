@@ -19,6 +19,8 @@
 		};
 
 		// Execute the module function
+		// ?学习call
+		// 参数在函数里改变后，怎么输出保存的
 		modules[moduleId].call(module.exports, module, module.exports, __webpack_require__);
 
 		// Flag the module as loaded
@@ -40,4 +42,21 @@
 	// Load entry module and return exports， 从参数modules[0]开始执行require
 	return __webpack_require__(0);
 })
-([]);
+([
+	/* 0 */
+	(function (module, exports, __webpack_require__) {
+	
+		'use strict';
+		
+		var _window2 = __webpack_require__(1);
+	}),
+	/* 1 */
+	(function (module, exports, __webpack_require__) {
+		
+		'use strict';
+
+		Object.defineProperty(exports, "__esModule", {
+			value: true
+		});
+	})
+]);
