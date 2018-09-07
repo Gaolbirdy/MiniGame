@@ -5,4 +5,4 @@ import './js/libs/weapp-adapter';
 
 // new Main();
 
-// 测试Object.defineProperty
+const { log } = console;
