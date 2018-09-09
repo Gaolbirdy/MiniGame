@@ -151,7 +151,115 @@
 				}
 			}
 
-			
+			return function (Constructor, protoProps, staticProps) {
+				if(protoProps)
+					definePropertys(Constructor.prototype, protoProps);
+				if(staticProps)
+					definePropertys(Constructor, staticProps);
+				return Constructor;
+			}	
 		}();
+
+		var _Element2 = __webpack_require__(5);
+	}),
+	/* 5 */
+	(function(module, exports, __webpack_require__) {
+
+		'use strict';
+
+		Object.defineProperty(exports, "__esModule", {
+			value: true
+		});
+
+		var _Node2 = __webpack_require__(6);
+
+
+	}),
+	/* 6 */
+	(function(module, exports, __webpack_require__) {
+
+		'use strict';
+
+		Object.defineProperty(exports, "__esModule", {
+			value: true
+		});
+
+		var _createClass = function () {
+			function definePropertys(target, props) {
+				for (var i = 0; i < props.length; i++){
+					var descriptor = props[i];
+
+					descriptor.enumerable = descriptor.enumerable || false;
+					descriptor.configurable = true;
+
+					if ('value' in descriptor)
+						descriptor.writable = true;
+					
+					Object.defineProperty(target, descriptor.key, descriptor);
+				}
+			}
+
+			return function (Constructor, protoProps, staticProps) {
+				if(protoProps)
+					definePropertys(Constructor.prototype, protoProps);
+				if(staticProps)
+					definePropertys(Constructor, staticProps);
+				return Constructor;
+			}	
+		}();
+
+		var _EventTarget2 = __webpack_require__(7);
+
+	}),
+	/* 7 */
+	(function(module, exports) {
+
+		'use strict';
+
+		Object.defineProperty(exports, "__esModule", {
+			value: true
+		});
+
+		var _createClass = function () {
+			function definePropertys(target, props) {
+				for (var i = 0; i < props.length; i++){
+					var descriptor = props[i];
+
+					descriptor.enumerable = descriptor.enumerable || false;
+					descriptor.configurable = true;
+
+					if ('value' in descriptor)
+						descriptor.writable = true;
+					
+					Object.defineProperty(target, descriptor.key, descriptor);
+				}
+			}
+
+			return function (Constructor, protoProps, staticProps) {
+				if(protoProps)
+					definePropertys(Constructor.prototype, protoProps);
+				if(staticProps)
+					definePropertys(Constructor, staticProps);
+				return Constructor;
+			}	
+		}();
+
+		function _classCallCheck(instance, Constructor) {
+			if(!(instance instanceof Constructor)) {
+				throw new TypeError("Cannot call a class as a function");
+			}
+		}
+
+		var _events = new WeakMap();
+
+		var EventTarget = function () {
+			function EventTarget() {
+				_classCallCheck(this, EventTarget);
+
+				_events.set(this, {});
+			}
+
+			
+		};
 	})
 ]);
