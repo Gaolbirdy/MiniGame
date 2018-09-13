@@ -5,7 +5,8 @@ let instance;
  */
 export default class Music {
     constructor() {
-        if (instance)
+        // 单例
+        if (instance)   // instance在外部import music模块时，是怎么存在的？
             return instance;
         
         instance = this;
