@@ -6,11 +6,11 @@ let instance;
 export default class Music {
     constructor() {
         // 单例
-        if (instance)   // instance在外部import music模块时，是怎么存在的？
+        if (instance)
             return instance;
         
         instance = this;
-
+        
         this.bgmAudio = new Audio();
         this.bgmAudio.loop = true;
         this.bgmAudio.src = 'audio/bgm.mp3';
