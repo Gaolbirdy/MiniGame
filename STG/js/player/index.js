@@ -79,7 +79,7 @@ export default class Player extends Sprite {
             e.preventDefault();
 
             let x = e.touches[0].clientX;
-            let y = e.touches[0].clienty;
+            let y = e.touches[0].clientY;
 
             if (this.checkIsFingerOnAir(x, y)) {
                 this.touched = true;
