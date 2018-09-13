@@ -1,3 +1,5 @@
+import Player from './player/index';
+import Enemy from './npc/enemy';
 import BackGround from './runtime/background';
 import GameInfo from './runtime/gameinfo';
 import Music from './runtime/music';
@@ -18,10 +20,11 @@ export default class Main {
         databus.reset();
 
         this.bg = new BackGround(ctx);
+        this.player = new Player(ctx);
         this.gameInfo = new GameInfo();
         this.music = new Music();
 
-        this.gameInfo.renderGameOver(ctx, 100);
+        // this.gameInfo.renderGameOver(ctx, 100);
     }
 }
 

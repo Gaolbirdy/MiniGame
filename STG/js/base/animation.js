@@ -104,7 +104,7 @@ export default class Animation extends Sprite {
                 this.index = 0;
             }
             else {
-                this.index--;
+                this.index--;   // ?
                 this.stop();
             }
         }
