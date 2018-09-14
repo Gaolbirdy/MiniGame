@@ -1,25 +1,34 @@
+let instance;
 let canvas = wx.createCanvas();
 let ctx = canvas.getContext('2d');
 
 export default class Main {
     constructor() {
+        if (instance)
+            return instance;
 
+        instance = this;
+
+		this.start();
     }
 
     start() {
-
+		this.loop();
     }
 
     update() {
-
+		
     }
 
     render() {
-
+		
     }
 
     loop() {
+		this.update();
+		this.render();
 
+		requestAnimationFrame(this.loop.bind(this));
     }
 }
 
