@@ -59,7 +59,6 @@ function update() {
     // 随机时间目标
     timeGoal = getRandomIntInclusive(MINTIME, MAXTIME);
 
-    // 有时是负值的bug
     currentTime = new Date().getSeconds();
     sumTime = currentTime - startTime;
 }
@@ -82,7 +81,6 @@ wx.onTouchStart((res) => {
 });
 
 // 得到触摸的用时
-// 时间戳属性大小写bug
 function getTime(res) {
     time = res.timestamp - lastTime;
 
