@@ -24,6 +24,7 @@ UI
 
 Sound
 	通过音效反馈准确度
+    三种BGM风格
 
 Art
 
