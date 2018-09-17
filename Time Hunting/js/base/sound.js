@@ -15,6 +15,10 @@ export default class Sound {
 		this.resultAudio = wx.createInnerAudioContext();
 		this.resultAudio.src = 'audio/result.mp3';
 
+		this.bgmAudio = wx.createInnerAudioContext();
+		this.bgmAudio.loop = true;
+		this.bgmAudio.src = 'audio/bgm.mp3';
+
 		this.numsSound = [
 			'audio/1.wav',
 			'audio/2.wav',
@@ -39,4 +43,8 @@ export default class Sound {
         this.resultAudio.stop();
 		this.resultAudio.play();
 	}
+
+	playBgm() {
+		this.bgmAudio.play();
+	  }
 }
