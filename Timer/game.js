@@ -1,3 +1,5 @@
+import Sound from './js/base/sound';
+
 const canvas = wx.createCanvas();
 const context = canvas.getContext('2d');
 
@@ -23,6 +25,8 @@ const startTime = new Date().getSeconds();
 let currentTime = new Date().getSeconds();
 let sumTime = 0;
 
+const sound = new Sound();
+
 let result = '感觉如何？';
 const GAMETITLE = '时间猎手';
 const TIP1 = ' 秒后  及时触摸屏幕';
@@ -39,13 +43,13 @@ const normalText = '感觉微妙';
 const slowText = "'慢性子'   ";
 const fastText = "'急性子'   ";
 const comboText = '连准: ';
-const slowVText = '    慢性值:  ';
-const fastVText = '    急性值:  ';
+const slowVText = '    慢性值: ';
+const fastVText = '    急性值: ';
 const recordText = '最大连准: ';
-const goodCountText = ' 准:  ';
-const badCountText = ' 离谱:  ';
-const bestCountText = '  神准:  ';
-const normalCountText = ' 微妙:  ';
+const goodCountText = '  准: ';
+const badCountText = '  离谱: ';
+const bestCountText = '   神准: ';
+const normalCountText = '  微妙: ';
 let sumText = '秒 的时间洪流中，你…';
 
 start();
@@ -58,6 +62,7 @@ function start() {
 function update() {
     // 随机时间目标
     timeGoal = getRandomIntInclusive(MINTIME, MAXTIME);
+    sound.playStart(timeGoal);
 
     currentTime = new Date().getSeconds();
     sumTime = currentTime - startTime;
@@ -78,6 +83,8 @@ wx.onTouchStart((res) => {
     getResult(time);
 
     start();
+    sound.playTouch(timeGoal);
+
 });
 
 // 得到触摸的用时
