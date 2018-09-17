@@ -19,15 +19,17 @@ let bestCount = 0;
 let normalCount = 0;
 
 const MINTIME = 1;
-const MAXTIME = 7;
-const startTime = new Date().getSeconds();
+const MAXTIME = 8;
+const STARTTIME = new Date().getSeconds();
 
 let currentTime = new Date().getSeconds();
 let sumTime = 0;
+let huntingTime = 0;
 
-const sound = new Sound();
+const SOUND = new Sound();
 
 let result = '感觉如何？';
+let sumText = '秒 的时间洪流中，你捕获了 ';
 const GAMETITLE = '时间捕手';
 const TIP1 = ' 秒后  及时触摸屏幕';
 const TIP2 = '抓住时间';
@@ -36,21 +38,21 @@ const DARKSTYLE = 'gray';
 const FONT = '25px Arial';
 const SMALLFONT = '20px Arial';
 const ALIGN = 'center';
-const goodText = '准';
-const badText = '感觉离谱';
-const bestText = '神准';
-const normalText = '感觉微妙';
-const slowText = "'慢性子'   ";
-const fastText = "'急性子'   ";
-const comboText = '连准: ';
-const slowVText = '    慢性值: ';
-const fastVText = '    急性值: ';
-const recordText = '最大连准: ';
-const goodCountText = '  准: ';
-const badCountText = '  离谱: ';
-const bestCountText = '   神准: ';
-const normalCountText = '  微妙: ';
-let sumText = '秒 的时间洪流中，你…';
+const GOODText = '准';
+const BADTEXT = '感觉离谱';
+const BESTTEXT = '神准';
+const NORMALTEXT = '感觉微妙';
+const SLOWTEXT = "'慢性子'   ";
+const FASTTEXT = "'急性子'   ";
+const COMBOTEXT = '连准: ';
+const SLOWVTEXT = '    慢性值: ';
+const FASTVTEXT = '    急性值: ';
+const RECORDTEXT = '最大连准: ';
+const GOODCOUNTTEXT = '  准: ';
+const BADCOUNTTEXT = '  离谱: ';
+const BESTCOUNTTEXT = '   神准: ';
+const NORMALCOUNTTEXT = '  微妙: ';
+const SECOND = '秒';
 
 start();
 
@@ -62,10 +64,10 @@ function start() {
 function update() {
     // 随机时间目标
     timeGoal = getRandomIntInclusive(MINTIME, MAXTIME);
-    sound.playStart(timeGoal);
+    SOUND.playStart(timeGoal);
 
     currentTime = new Date().getSeconds();
-    sumTime = currentTime - startTime;
+    sumTime = currentTime - STARTTIME;
 }
 
 // 得到一个两数之间的随机整数，包括两个数在内
@@ -83,15 +85,14 @@ wx.onTouchStart((res) => {
     getResult(time);
 
     start();
-    sound.playResult(timeGoal);
+    SOUND.playResult(timeGoal);
 
 });
 
 // 得到触摸的用时
 function getTime(res) {
-    time = res.timestamp - lastTime;
-
-    lastTime = res.timestamp;
+    time = res.timeStamp || res.timestamp - lastTime;
+    lastTime = res.timeStamp || res.timestamp;
 }
 
 // 根据触摸时间，判定成绩结果
@@ -99,19 +100,21 @@ function getResult(time) {
     time = time / 1000;
 
     if (time <= timeGoal + bestDeviation && time >= timeGoal - bestDeviation) {
-        result = bestText;
+        result = BESTTEXT;
         combo++;
         bestCount++;
+        huntingTime += timeGoal;
     } else if (time <= timeGoal + goodDeviation && time >= timeGoal - goodDeviation) {
-        result = goodText;
+        result = GOODText;
         combo++;
         goodCount++;
+        huntingTime += timeGoal;
     } else if (time <= timeGoal + normalDeviation && time >= timeGoal - normalDeviation) {
-        result = normalText;
+        result = NORMALTEXT;
         combo = 0;
         normalCount++;
     } else {
-        result = badText;
+        result = BADTEXT;
         combo = 0;
         badCount++;
     }
@@ -119,10 +122,10 @@ function getResult(time) {
     combo > 1 && combo > comboRecord ? comboRecord = combo : null;
 
     if (time > timeGoal) {
-        result = slowText + result;
+        result = SLOWTEXT + result;
         slowV++;
     } else {
-        result = fastText + result;  
+        result = FASTTEXT + result;  
         fastV++
     }
 }
@@ -137,15 +140,15 @@ function render() {
     context.fillText(timeGoal + TIP1, canvas.width / 2, canvas.height / 4);
     context.fillText(TIP2, canvas.width / 2, canvas.height / 4 * 1.3);
     context.fillText(result, canvas.width / 2, canvas.height / 10 * 5);
-    combo > 1 ? context.fillText(comboText + combo, canvas.width / 2, canvas.height / 10 * 6) : null;
-    context.fillText(recordText + comboRecord, canvas.width / 2, canvas.height / 10 * 7);
+    combo > 1 ? context.fillText(COMBOTEXT + combo, canvas.width / 2, canvas.height / 10 * 6) : null;
+    context.fillText(RECORDTEXT + comboRecord, canvas.width / 2, canvas.height / 10 * 7);
 
     context.font = SMALLFONT;
     context.fillStyle = DARKSTYLE;
 
-    context.fillText(sumTime + sumText, canvas.width / 2, canvas.height / 10 * 8);
-    context.fillText(fastVText + fastV + slowVText + slowV, canvas.width / 2, canvas.height / 10 * 8.75);
+    context.fillText(sumTime + sumText + huntingTime + SECOND, canvas.width / 2, canvas.height / 10 * 8);
+    context.fillText(FASTVTEXT + fastV + SLOWVTEXT + slowV, canvas.width / 2, canvas.height / 10 * 8.75);
     context.fillText(
-        badCountText + badCount + normalCountText + normalCount + goodCountText + goodCount + bestCountText + bestCount ,
+        BADCOUNTTEXT + badCount + NORMALCOUNTTEXT + normalCount + GOODCOUNTTEXT + goodCount + BESTCOUNTTEXT + bestCount ,
         canvas.width / 2, canvas.height / 10 * 9.5);
 }
