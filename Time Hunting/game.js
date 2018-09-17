@@ -28,7 +28,7 @@ let sumTime = 0;
 const sound = new Sound();
 
 let result = '感觉如何？';
-const GAMETITLE = '时间猎手';
+const GAMETITLE = '时间捕手';
 const TIP1 = ' 秒后  及时触摸屏幕';
 const TIP2 = '抓住时间';
 const STYLE = 'yellow';
@@ -83,7 +83,7 @@ wx.onTouchStart((res) => {
     getResult(time);
 
     start();
-    sound.playTouch(timeGoal);
+    sound.playResult(timeGoal);
 
 });
 
