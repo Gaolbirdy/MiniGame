@@ -1,23 +1,16 @@
 {
-	"description": "项目配置文件",
-	"packOptions": {
-		"ignore": []
-	},
+	"description": "项目配置文件。",
 	"setting": {
-		"urlCheck": true,
-		"es6": true,
+		"urlCheck": false,
+		"es6": false,
 		"postcss": true,
-		"minified": true,
+		"minified": false,
 		"newFeature": true
 	},
 	"compileType": "game",
-	"libVersion": "2.3.0",
-	"appid": "wx97f2443e70b4ada9",
-	"projectname": "Time%20Hunting",
-	"debugOptions": {
-		"hidedInDevtools": []
-	},
-	"isGameTourist": false,
+	"libVersion": "game",
+	"appid": "wx9170ca1ff6f31088",
+	"projectname": "layaWXTest",
 	"condition": {
 		"search": {
 			"current": -1,
