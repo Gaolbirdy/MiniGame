@@ -13,7 +13,7 @@
 	"compileType": "game",
 	"libVersion": "2.3.0",
 	"appid": "wx97f2443e70b4ada9",
-	"projectname": "Time%20Hunting",
+	"projectname": "TimeHunting",
 	"debugOptions": {
 		"hidedInDevtools": []
 	},
