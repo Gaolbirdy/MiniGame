@@ -1,4 +1,4 @@
-import Sound from './js/base/sound';
+﻿import Sound from './js/base/sound';
 
 const canvas = wx.createCanvas();
 const context = canvas.getContext('2d');
@@ -127,7 +127,7 @@ function getResult(time) {
         slowV++;
     } else {
         result = FASTTEXT + result;  
-        fastV++
+        fastV++；
     }
 }
 
