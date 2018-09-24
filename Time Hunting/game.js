@@ -92,7 +92,7 @@ wx.onTouchStart((res) => {
 
 // 得到触摸的用时
 function getTime(res) {
-    time = res.timeStamp || res.timestamp - lastTime;
+    time = (res.timeStamp || res.timestamp) - lastTime;
     lastTime = res.timeStamp || res.timestamp;
 }
 
