@@ -1,4 +1,5 @@
 import Sound from './js/base/sound';
+import { getRandomIntInclusive } from './js/libs/math';
 
 const canvas = wx.createCanvas();
 const context = canvas.getContext('2d');
@@ -69,14 +70,6 @@ function update() {
 
     currentTime = new Date().getSeconds();
     sumTime = currentTime - STARTTIME;
-}
-
-// 得到一个两数之间的随机整数，包括两个数在内
-function getRandomIntInclusive(min = 0, max = 1) {
-    min = Math.ceil(min);
-    max = Math.floor(max);
-
-    return Math.floor(Math.random() * (max - min + 1)) + min;
 }
 
 // 触摸事件监听
