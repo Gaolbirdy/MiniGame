@@ -30,8 +30,5 @@ function render() {
 function update() {
 	face.move();
 
-	requestAnimationFrame(update);
-	
+	requestAnimationFrame(update);	
 }
-
-export { canvas };
