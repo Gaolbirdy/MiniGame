@@ -154,7 +154,5 @@ function render() {
         BADCOUNTTEXT + badCount + NORMALCOUNTTEXT + normalCount + GOODCOUNTTEXT + goodCount + BESTCOUNTTEXT + bestCount ,
         canvas.width / 2, canvas.height / 10 * 9.5);
     
-	// context.drawImage(image, canvas.width / 2 - image.width / 2, canvas.height / 18, 50, 50);
-    context.drawImage(image, canvas.width / 2 - 50 / 2, canvas.height / 35, 50, 50);
-    
+    context.drawImage(image, canvas.width / 2 - 50 / 2, canvas.height / 35, 50, 50);    
 }
