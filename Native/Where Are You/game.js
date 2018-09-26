@@ -1,8 +1,11 @@
 import './js/libs/weapp-adapter';
 import Face from './js/face';
 
+const TOUCHNUMS = 3;
+let life = TOUCHNUMS;
+
 let context = canvas.getContext('2d');
-context.fillStyle = 'white'
+context.fillStyle = 'white';
 let image = wx.createImage();
 
 let face = new Face();
@@ -20,11 +23,28 @@ function start() {
 	render();
 }
 
+let tempAlpha = 1;
+
 function render() {
 	context.clearRect(0, 0, canvas.width, canvas.height);
 	
+	context.globalAlpha = tempAlpha - 1 / (60 * 3.5);	
+	tempAlpha = context.globalAlpha;
+	// context.globalAlpha = 0.5;	
+	context.beginPath();	
 	context.drawImage(image, face.x, face.y, image.width * 2, image.height * 2);
 	context.fillRect(face.x - 50 , face.y - 50, 100, 100);
+	context.closePath();
+	context.save();
+
+	context.globalAlpha = 1;	
+	context.beginPath();
+	context.font = '25px Arial';
+	context.textAlign = 'center';
+	context.fillText('点触机会: ' + life, canvas.width / 2, canvas.height / 2);
+	context.closePath();
+	context.save();
+	console.log(tempAlpha)
 
 	requestAnimationFrame(render);
 }
@@ -34,7 +54,6 @@ function update() {
 
 	requestAnimationFrame(update);	
 
-	context.globalAlpha -= 1 / (60 * 3.5);
 }
 
 // 触摸事件监听
@@ -42,6 +61,7 @@ wx.onTouchStart((res) => {
 	// console.log(res.touches);
 	// console.log(res.touches.length)
 
+	life -= res.touches.length;
 	getResult(res.touches[0].clientX, res.touches[0].clientY);
 });
 
