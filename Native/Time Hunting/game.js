@@ -58,7 +58,7 @@ const NORMALCOUNTTEXT = '  微妙: ';
 const SECOND = '秒';
 
 start();
-// SOUND.playBgm();
+SOUND.playBgm();
 
 function start() {
     image.onload = function () {
