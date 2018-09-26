@@ -3,6 +3,7 @@ import { getRandomIntInclusive } from './js/libs/math';
 
 const canvas = wx.createCanvas();
 const context = canvas.getContext('2d');
+context.globalAlpha = 0;
 
 let timeGoal = 1;
 let bestDeviation = 0.25;
@@ -18,6 +19,7 @@ let goodCount = 0;
 let badCount = 0;
 let bestCount = 0;
 let normalCount = 0;
+let blink = false;
 
 const MINTIME = 1;
 const MAXTIME = 8;
@@ -66,7 +68,7 @@ function start() {
 		render();
 	};
     image.src = 'images/time.jpg';
-    
+
     update();
     render();
 }
@@ -89,6 +91,7 @@ wx.onTouchStart((res) => {
     start();
     SOUND.playResult(timeGoal);
 
+	blink = true;
 });
 
 // 得到触摸的用时
@@ -133,6 +136,17 @@ function getResult(time) {
 }
 
 function render() {
+	// 初始化淡入
+	
+	if (context.globalAlpha < 1) {
+		context.globalAlpha += 0.002;
+
+		if (context.globalAlpha > 0.99) {
+			context.globalAlpha = 1;
+		}
+	}
+
+
     // UI绘制
     context.clearRect(0, 0, canvas.width, canvas.height);
 
@@ -160,4 +174,6 @@ function render() {
         canvas.width / 2, canvas.height / 10 * 9.5);
     
     context.drawImage(image, canvas.width / 2 - 50 / 2, canvas.height / 35, 50, 50);    
+
+	requestAnimationFrame(render);
 }
