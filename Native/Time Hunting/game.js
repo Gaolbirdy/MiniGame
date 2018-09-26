@@ -27,6 +27,8 @@ let currentTime = new Date().getSeconds();
 let sumTime = 0;
 let huntingTime = 0;
 
+let image = new wx.createImage();
+
 const SOUND = new Sound();
 
 let result = '感觉如何？';
@@ -59,6 +61,12 @@ start();
 // SOUND.playBgm();
 
 function start() {
+    image.onload = function () {
+		console.log(image.width, image.height);
+		render();
+	};
+    image.src = 'images/time.jpg';
+    
     update();
     render();
 }
@@ -130,7 +138,7 @@ function render() {
     context.fillStyle = STYLE;
     context.font = FONT;
     context.textAlign = ALIGN;
-    context.fillText(GAMETITLE, canvas.width / 2, canvas.height / 8);
+    context.fillText(GAMETITLE, canvas.width / 2, canvas.height / 6.5);
     context.fillText(timeGoal + TIP1, canvas.width / 2, canvas.height / 4);
     context.fillText(TIP2, canvas.width / 2, canvas.height / 4 * 1.3);
     context.fillText(result, canvas.width / 2, canvas.height / 10 * 5);
@@ -145,4 +153,8 @@ function render() {
     context.fillText(
         BADCOUNTTEXT + badCount + NORMALCOUNTTEXT + normalCount + GOODCOUNTTEXT + goodCount + BESTCOUNTTEXT + bestCount ,
         canvas.width / 2, canvas.height / 10 * 9.5);
+    
+	// context.drawImage(image, canvas.width / 2 - image.width / 2, canvas.height / 18, 50, 50);
+    context.drawImage(image, canvas.width / 2 - 50 / 2, canvas.height / 35, 50, 50);
+    
 }
