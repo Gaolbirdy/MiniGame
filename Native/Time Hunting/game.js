@@ -135,6 +135,11 @@ function getResult(time) {
 function render() {
     // UI绘制
     context.clearRect(0, 0, canvas.width, canvas.height);
+
+	// 背景底色
+	context.fillStyle = 'rgb(20, 0, 28)';
+	context.fillRect(0, 0, canvas.width, canvas.height)
+
     context.fillStyle = STYLE;
     context.font = FONT;
     context.textAlign = ALIGN;
