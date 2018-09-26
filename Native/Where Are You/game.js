@@ -2,7 +2,7 @@ import './js/libs/weapp-adapter';
 import Face from './js/face';
 
 let context = canvas.getContext('2d');
-context.fillStyle = 'red'
+context.fillStyle = 'white'
 let image = wx.createImage();
 
 let face = new Face();
@@ -22,7 +22,8 @@ function start() {
 
 function render() {
 	context.clearRect(0, 0, canvas.width, canvas.height);
-	context.drawImage(image, face.x, face.y);
+	
+	context.drawImage(image, face.x, face.y, image.width * 2, image.height * 2);
 	context.fillRect(face.x - 50 , face.y - 50, 100, 100);
 
 	requestAnimationFrame(render);
