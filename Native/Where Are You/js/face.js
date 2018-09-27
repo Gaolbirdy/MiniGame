@@ -6,6 +6,10 @@ export default class Face {
 		this.y = canvas.height / 2;
 		this.speedX = getRandomIntInclusive(2, 2);
 		this.speedY = getRandomIntInclusive(2, 2);
+		this.reWidth = 1;
+		this.reHeight = 1;
+		// this.reX = this.x - this.reWidth / 2;
+		// this.reY = this.y - this.reHeight / 2;
 	}
 
 	move() {
@@ -16,7 +20,7 @@ export default class Face {
 			this.speedX = -this.speedX;
 		}
 
-		if (this.x >= canvas.width) {
+		if (this.x >= canvas.width - this.reWidth) {
 			this.speedX = -this.speedX;
 		}
 
@@ -24,7 +28,7 @@ export default class Face {
 			this.speedY = -this.speedY;
 		}
 
-		if (this.y >= canvas.height) {
+		if (this.y >= canvas.height - this.reHeight) {
 			this.speedY = -this.speedY;
 		}
 	}

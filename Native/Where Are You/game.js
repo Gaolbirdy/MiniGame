@@ -4,15 +4,20 @@ import Face from './js/face';
 const FACEIMGSRC = 'images/test.png';
 const FACEIMGSIZE = 1;
 const ALPHASTEP = 0.003;
-const STYLE = 'white';
-const TOUCHAREA = 100;
+const STYLE = '#ffffff';
+const TOUCHAREA = 0;
 const TOUCHNUMS = 3;
 
 let context = canvas.getContext('2d');
 let image = wx.createImage();
 let face = new Face();
 let lives = TOUCHNUMS;
-let reWidth = 1, reHeight = 1;
+
+
+(function debugTest() {
+
+})();
+
 
 begin();
 
@@ -33,8 +38,8 @@ function init() {
 }
 
 function resize() {
-	reWidth = image.width * FACEIMGSIZE;
-	reHeight = image.height * FACEIMGSIZE;
+	face.reWidth = image.width * FACEIMGSIZE;
+	face.reHeight = image.height * FACEIMGSIZE;
 }
 
 function restart() {
@@ -58,9 +63,9 @@ function render() {
 	
 	context.clearRect(0, 0, canvas.width, canvas.height);
 
-	context.drawImage(image, face.x, face.y, reWidth, reWidth);
+	context.drawImage(image, face.x - face.reWidth / 2, face.y - face.reHeight / 2, face.reWidth, face.reHeight);
 	
-	context.fillStyle = STYLE;
+	// context.fillStyle = STYLE;
 	context.fillRect(0, 0, 100, 100);
 
 
@@ -96,15 +101,10 @@ function touch() {
 
 // 根据触摸位置，判定成绩结果
 function getResult(x, y) {
-	testTouchArea(x, y);
+	if (x >= face.x - face.reWidth / 2 && x <= face.x - face.reWidth / 2 + face.reWidth
+		&& y >= face.y - face.reHeight / 2 && y <= face.y - face.reHeight / 2 + face.reHeight) {
+		// console.log('摸到了', face.x - face.reWidth / 2, face.x - face.reWidth / 2 + face.reWidth, x);
 
-	if ((x >= face.x && x <= face.x + reWidth) && (y >= face.y && y <= face.y + reWidth)) {
-		console.log('摸到了');		
-	}
-}
-
-function testTouchArea(x, y) {
-	if ((x >= 0 && x <= TOUCHAREA) && (y >= 0 && y <= TOUCHAREA)) {
-		console.log('摸到了');
+		context.fillStyle = (context.fillStyle === STYLE ? 'red' : STYLE);
 	}
 }
