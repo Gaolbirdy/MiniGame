@@ -4,17 +4,17 @@ import Face from './js/face';
 const FACEIMGSRC = 'images/test.png';
 const FACEIMGSIZE = 1;
 const ALPHASTEP = 0.003;
-const STYLE = '#ffffff';
 const TOUCHAREA = 0;
 const TOUCHNUMS = 3;
 
+let STYLE = 'white';
 let context = canvas.getContext('2d');
 let image = wx.createImage();
 let face = new Face();
 let lives = TOUCHNUMS;
 
 
-(function debugTest() {
+(function debugArea() {
 
 })();
 
@@ -55,7 +55,7 @@ function loop() {
 }
 
 function update() {
-	// face.move();
+	face.move();
 }
 
 function render() {
@@ -65,7 +65,7 @@ function render() {
 
 	context.drawImage(image, face.x - face.reWidth / 2, face.y - face.reHeight / 2, face.reWidth, face.reHeight);
 	
-	// context.fillStyle = STYLE;
+	context.fillStyle = STYLE;
 	context.fillRect(0, 0, 100, 100);
 
 
@@ -92,19 +92,19 @@ function touch() {
 		getResult(res.touches[0].clientX, res.touches[0].clientY);
 	});
 
-	wx.onTouchEnd((res) => {
-	});
+	// wx.onTouchEnd((res) => {
+	// });
 
-	wx.onTouchMove((res) => {
-	});
+	// wx.onTouchMove((res) => {
+	// });
 }
 
 // 根据触摸位置，判定成绩结果
 function getResult(x, y) {
-	if (x >= face.x - face.reWidth / 2 && x <= face.x - face.reWidth / 2 + face.reWidth
-		&& y >= face.y - face.reHeight / 2 && y <= face.y - face.reHeight / 2 + face.reHeight) {
-		// console.log('摸到了', face.x - face.reWidth / 2, face.x - face.reWidth / 2 + face.reWidth, x);
+	if (x >= face.x - face.reWidth / 2 - TOUCHAREA && x <= face.x - face.reWidth / 2 + face.reWidth + TOUCHAREA
+		&& y >= face.y - face.reHeight / 2 - TOUCHAREA && y <= face.y - face.reHeight / 2 + face.reHeight + TOUCHAREA) {
 
-		context.fillStyle = (context.fillStyle === STYLE ? 'red' : STYLE);
+		STYLE = (STYLE === 'white' ? 'red' : 'white');
+		context.globalAlpha = 1;
 	}
 }
