@@ -1,6 +1,7 @@
 import './js/libs/weapp-adapter';
 import Face from './js/face';
 
+const DEBUGMODE = false;
 const FACEIMGSRC = 'images/test.png';
 const FACEIMGSIZE = 1;
 const ALPHASTEP = 0.003;
@@ -12,14 +13,19 @@ let context = canvas.getContext('2d');
 let image = wx.createImage();
 let face = new Face();
 let lives = TOUCHNUMS;
+let tempAlpha = 1;
+
+function debugArea() {
+	console.log('DEBUGMODE');
+};
 
 
-(function debugArea() {
+if (!DEBUGMODE) {
+	begin();
+} else {
+	debugArea();
+}
 
-})();
-
-
-begin();
 
 function begin() {
 	init();
@@ -59,32 +65,27 @@ function update() {
 }
 
 function render() {
-	// fadeOut();
 	
 	context.clearRect(0, 0, canvas.width, canvas.height);
 
+	context.beginPath();
+	fadeOut();
 	context.drawImage(image, face.x - face.reWidth / 2, face.y - face.reHeight / 2, face.reWidth, face.reHeight);
-	
-	context.fillStyle = STYLE;
-	context.fillRect(0, 0, 100, 100);
-
-
-	// context.globalAlpha -= ALPHASTEP;	
-	// context.beginPath();
-	// context.drawImage(image, face.x, face.y, image.width * FACEIMGSIZE, image.height * FACEIMGSIZE);
 	// context.closePath();
 	// context.save();
 
-	// context.beginPath();
-	// context.globalAlpha = 1;
-	// context.fillStyle = STYLE;
-	// context.fillRect(0, 0, 100, 100);
+	context.beginPath();
+	context.globalAlpha = 1;
+	context.fillStyle = STYLE;
+	context.fillRect(0, 0, 100, 100);
 	// context.closePath();
 	// context.save();
 }
 
 function fadeOut() {
-	context.globalAlpha -= ALPHASTEP;
+	console.log(tempAlpha)
+	context.globalAlpha = tempAlpha - 0.01;
+	tempAlpha = context.globalAlpha;
 }
 
 function touch() {
