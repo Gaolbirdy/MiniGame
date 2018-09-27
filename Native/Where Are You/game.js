@@ -1,99 +1,93 @@
 import './js/libs/weapp-adapter';
 import Face from './js/face';
 
+const FACEIMGSRC = 'images/face.png';
+const FACEIMGSIZE = 2;
+const ALPHASTEP = 0.003;
+const STYLE = 'white';
 const TOUCHNUMS = 3;
-let life = TOUCHNUMS;
-let lineX, lineY, lineXEnd, lineYend;
 
 let context = canvas.getContext('2d');
-context.fillStyle = 'white';
 let image = wx.createImage();
-
 let face = new Face();
+let lineX, lineY;
+let lives = TOUCHNUMS;
 
-start();
+begin();
 
-function start() {
+function begin() {
+	init();
+
+	restart();
+}
+
+function init() {
 	image.onload = function () {
 		render();
 	};
-	image.src = 'images/face.png';
+	image.src = FACEIMGSRC;
 
-	update();
-	render();
+	touch();
 }
 
-let tempAlpha = 1;
+function restart() {
+	loop();
+}
 
-function render() {
-	context.clearRect(0, 0, canvas.width, canvas.height);
-	
-	context.globalAlpha = tempAlpha - 1 / (60 * 3.5);	
-	tempAlpha = context.globalAlpha;
-	// context.globalAlpha = 0.5;	
-	context.beginPath();	
-	context.drawImage(image, face.x, face.y, image.width * 2, image.height * 2);
-	context.fillRect(face.x - 50 , face.y - 50, 100, 100);
-	context.closePath();
-	context.save();
+function loop() {
+	update();
 
-	context.globalAlpha = 1;	
-	context.beginPath();
-	context.font = '25px Arial';
-	context.textAlign = 'center';
-	context.fillText('点触机会: ' + life, canvas.width / 2, canvas.height / 2);
-	context.closePath();
-	context.save();
+	render();
 
-	context.moveTo(lineX, lineY);       //设置起点状态
-	context.lineTo(lineXEnd, lineYend);       //设置末端状态
-	context.lineWidth = 10;          //设置线宽状态
-	context.strokeStyle = 'red' ;  //设置线的颜色状态
-	context.stroke();               //进行绘制
-
-
-	requestAnimationFrame(render);
+	requestAnimationFrame(loop);			
 }
 
 function update() {
 	face.move();
-
-	requestAnimationFrame(update);	
-
 }
 
+function render() {
+	// fadeOut();
+	
+	context.clearRect(0, 0, canvas.width, canvas.height);
+	
+	context.globalAlpha -= ALPHASTEP;	
+	context.beginPath();
+	context.drawImage(image, face.x, face.y, image.width * FACEIMGSIZE, image.height * FACEIMGSIZE);
+	context.closePath();
+	context.save();
 
-// 触摸事件监听
-wx.onTouchStart((res) => {
-	// console.log(res.touches);
-	// console.log(res.touches.length)
+	context.globalAlpha = 1;
+	context.beginPath();
+	context.fillStyle = STYLE;
+	context.fillRect(0, 0, 100, 100);
+	context.closePath();
+	context.save();
+}
 
-	life -= res.touches.length;
-	lineX = res.touches[0].clientX;
-	lineY = res.touches[0].clientY;
-	getResult(res.touches[0].clientX, res.touches[0].clientY);
-});
+function fadeOut() {
+	context.globalAlpha -= ALPHASTEP;
+}
 
-// wx.onTouchEnd((res) => {
-// 	// console.log(res.touches);
-// 	// console.log(res.touches.length)
+function touch() {
+	wx.onTouchStart((res) => {
+		lineX = res.touches[0].clientX;
+		lineY = res.touches[0].clientY;
+		getResult(res.touches[0].clientX, res.touches[0].clientY);
+	});
 
-// 	lineXEnd = res.changedTouches[0].clientX;
-// 	lineYend = res.changedTouches[0].clientY;
-// });
+	wx.onTouchEnd((res) => {
+	});
 
-wx.onTouchMove((res) => {
-	console.log(res);
-	lineXEnd = res.changedTouches[0].clientX;
-	lineYend = res.changedTouches[0].clientY;
-});
-
+	wx.onTouchMove((res) => {
+	});
+}
 
 // 根据触摸位置，判定成绩结果
 function getResult(x, y) {
 	if ((x >= face.x - 50 && x <= face.y + 50) && (y >= face.y - 50 && y <= face.y + 50)) {
 		console.log(1);
-		context.fillStyle = 'yellow';
-		context.globalAlpha = 1;
+		// context.fillStyle = 'yellow';
+		// context.globalAlpha = 1;
 	}
 }
