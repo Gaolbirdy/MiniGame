@@ -4,7 +4,7 @@ import Face from './js/face';
 const DEBUGMODE = false;
 const FACEIMGSRC = 'images/test.png';
 const FACEIMGSIZE = 1;
-const ALPHASTEP = 0.003;
+const ALPHASTEP = 0.01;
 const TOUCHAREA = 0;
 const TOUCHNUMS = 3;
 
@@ -15,8 +15,10 @@ let face = new Face();
 let lives = TOUCHNUMS;
 let tempAlpha = 1;
 
+
 function debugArea() {
 	console.log('DEBUGMODE');
+
 };
 
 
@@ -65,26 +67,20 @@ function update() {
 }
 
 function render() {
-	
 	context.clearRect(0, 0, canvas.width, canvas.height);
 
 	context.beginPath();
-	fadeOut();
+	fadeOut();	
 	context.drawImage(image, face.x - face.reWidth / 2, face.y - face.reHeight / 2, face.reWidth, face.reHeight);
-	// context.closePath();
-	// context.save();
 
 	context.beginPath();
 	context.globalAlpha = 1;
 	context.fillStyle = STYLE;
 	context.fillRect(0, 0, 100, 100);
-	// context.closePath();
-	// context.save();
 }
 
 function fadeOut() {
-	console.log(tempAlpha)
-	context.globalAlpha = tempAlpha - 0.01;
+	context.globalAlpha = (tempAlpha - ALPHASTEP) < 0 ? 0 : (tempAlpha - ALPHASTEP);
 	tempAlpha = context.globalAlpha;
 }
 
@@ -106,6 +102,12 @@ function getResult(x, y) {
 		&& y >= face.y - face.reHeight / 2 - TOUCHAREA && y <= face.y - face.reHeight / 2 + face.reHeight + TOUCHAREA) {
 
 		STYLE = (STYLE === 'white' ? 'red' : 'white');
-		context.globalAlpha = 1;
+
+		tempAlpha = 1;
+	}
+
+	// 方便实在猜不到精灵位置了，重新显示
+	if(x >= 0 && x <= 50 && y >=0 && y <= 50) {
+		tempAlpha = 1;		
 	}
 }
