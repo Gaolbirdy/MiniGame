@@ -33,7 +33,6 @@ export default class Sound {
     }
 
     playStart(timeGoal) {
-
 		this.startAudio.stop();
         this.startAudio.src = this.numsSound[timeGoal - 1];
 		this.startAudio.play();
