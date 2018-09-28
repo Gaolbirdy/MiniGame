@@ -99,17 +99,9 @@ function renderUI() {
 
 function touch() {
 	wx.onTouchStart((res) => {
-		console.log(res.touches.length)
-
-		// for (let x in res.touches) {
-		// 	console.log(res.touches[x]);
-		// 	getResult(res.touches[x].clientX, res.touches[x].clientY);			
-		// }
-
 		for (let i = 0; i < res.touches.length; i++) {
 			getResult(res.touches[i].clientX, res.touches[i].clientY);					
 		}
-		// getResult(res.touches[0].clientX, res.touches[0].clientY);
 	});
 
 	// wx.onTouchEnd((res) => {
@@ -131,10 +123,10 @@ function getResult(x, y) {
 	}
 
 	// 方便实在猜不到精灵位置了，重新显示
-	if(x >= 0 && x <= 50 && y >=0 && y <= 50) {
-		visible();
-		return;	
-	}
+	// if(x >= 0 && x <= 50 && y >=0 && y <= 50) {
+	// 	visible();
+	// 	return;	
+	// }
 
 	lives--;
 
