@@ -6,7 +6,11 @@ const FACEIMGSRC = 'images/test.png';
 const FACEIMGSIZE = 1;
 const ALPHASTEP = 0.01;
 const TOUCHAREA = 0;
-const TOUCHNUMS = 3;
+const TOUCHNUMS = 4;
+
+const ALIGN = 'center';
+const FONT = '25px Arial';
+const LIVESTEXT = '触摸机会: ';
 
 let STYLE = 'white';
 let context = canvas.getContext('2d');
@@ -18,6 +22,7 @@ let tempAlpha = 1;
 
 function debugArea() {
 	console.log('DEBUGMODE');
+
 
 };
 
@@ -74,9 +79,7 @@ function render() {
 	context.drawImage(image, face.x - face.reWidth / 2, face.y - face.reHeight / 2, face.reWidth, face.reHeight);
 
 	context.beginPath();
-	context.globalAlpha = 1;
-	context.fillStyle = STYLE;
-	context.fillRect(0, 0, 100, 100);
+	renderUI();
 }
 
 function fadeOut() {
@@ -84,9 +87,29 @@ function fadeOut() {
 	tempAlpha = context.globalAlpha;
 }
 
+function renderUI() {
+	context.globalAlpha = 1;
+	context.fillStyle = STYLE;
+	context.fillRect(0, 0, 100, 100);
+
+	context.textAlign = ALIGN;
+	context.font = FONT;
+	context.fillText(LIVESTEXT + lives, canvas.width / 2, canvas.height / 10);
+}
+
 function touch() {
 	wx.onTouchStart((res) => {
-		getResult(res.touches[0].clientX, res.touches[0].clientY);
+		console.log(res.touches.length)
+
+		// for (let x in res.touches) {
+		// 	console.log(res.touches[x]);
+		// 	getResult(res.touches[x].clientX, res.touches[x].clientY);			
+		// }
+
+		for (let i = 0; i < res.touches.length; i++) {
+			getResult(res.touches[i].clientX, res.touches[i].clientY);					
+		}
+		// getResult(res.touches[0].clientX, res.touches[0].clientY);
 	});
 
 	// wx.onTouchEnd((res) => {
@@ -104,10 +127,27 @@ function getResult(x, y) {
 		STYLE = (STYLE === 'white' ? 'red' : 'white');
 
 		tempAlpha = 1;
+		return;
 	}
 
 	// 方便实在猜不到精灵位置了，重新显示
 	if(x >= 0 && x <= 50 && y >=0 && y <= 50) {
-		tempAlpha = 1;		
+		visible();
+		return;	
 	}
+
+	lives--;
+
+	if (lives <= 0) {
+		reset();
+	}
+}
+
+function visible() {
+	tempAlpha = 1;
+}
+
+function reset() {
+	visible();
+	lives = TOUCHNUMS;
 }
