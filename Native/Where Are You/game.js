@@ -6,12 +6,12 @@ const FACEIMGSRC = 'images/test.png';
 const FACEIMGSIZE = 1;
 const ALPHASTEP = 1 / (60 * 2);
 const TOUCHAREA = 0;
-const TOUCHNUMS = 3;
+const TOUCHNUMS = 40;
 const TIME = 3;
 
 const ALIGN = 'center';
 const FONT = '25px Arial';
-const LIVESTEXT = '触摸机会: ';
+const LIVESTEXT = '触摸资源: ';
 const TIMETEXT = '时间: ';
 
 let STYLE = 'white';
@@ -141,8 +141,15 @@ function touch() {
 	// wx.onTouchEnd((res) => {
 	// });
 
-	// wx.onTouchMove((res) => {
-	// });
+	wx.onTouchMove((res) => {
+		if (!canTouch) {
+			return;
+		}
+
+		for (let i = 0; i < res.changedTouches.length; i++) {
+			getResult(res.changedTouches[i].clientX, res.changedTouches[i].clientY);
+		}
+	});
 }
 
 // 根据触摸位置，判定成绩结果
