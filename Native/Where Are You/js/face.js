@@ -4,7 +4,7 @@ export default class Face {
 	constructor() {
 		this.x = canvas.width / 2;
 		this.y = canvas.height / 2;
-		this.speedDelta = 0.5;
+		this.speedDelta = 1;
 		this.speedX = getRandomIntInclusive(1, 1) + this.speedDelta;
 		this.speedY = getRandomIntInclusive(1, 1) + this.speedDelta;
 		this.reWidth = 1;

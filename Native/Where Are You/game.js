@@ -4,20 +4,25 @@ import Face from './js/face';
 const DEBUGMODE = false;
 const FACEIMGSRC = 'images/test.png';
 const FACEIMGSIZE = 1;
-const ALPHASTEP = 0.01;
+const ALPHASTEP = 1 / (60 * 2);
 const TOUCHAREA = 0;
-const TOUCHNUMS = 4;
+const TOUCHNUMS = 3;
+const TIME = 3;
 
 const ALIGN = 'center';
 const FONT = '25px Arial';
 const LIVESTEXT = '触摸机会: ';
+const TIMETEXT = '时间: ';
 
 let STYLE = 'white';
 let context = canvas.getContext('2d');
 let image = wx.createImage();
 let face = new Face();
 let lives = TOUCHNUMS;
+let time = TIME;
 let tempAlpha = 1;
+let canTouch = false;
+let clockInterval;
 
 
 function debugArea() {
@@ -55,6 +60,15 @@ function resize() {
 	face.reHeight = image.height * FACEIMGSIZE;
 }
 
+function clock() {
+	time--;
+}
+
+function resetClock() {
+	time = TIME;
+	clearInterval(clockInterval);
+}
+
 function restart() {
 	loop();
 }
@@ -69,6 +83,10 @@ function loop() {
 
 function update() {
 	face.move();
+
+	if (lives <= 0 || time <= 0) {
+		reset();
+	}
 }
 
 function render() {
@@ -85,20 +103,36 @@ function render() {
 function fadeOut() {
 	context.globalAlpha = (tempAlpha - ALPHASTEP) < 0 ? 0 : (tempAlpha - ALPHASTEP);
 	tempAlpha = context.globalAlpha;
+
+
+	if (canTouch === true)  {
+		return;
+	}
+
+	if (context.globalAlpha === 0) {
+		canTouch = true;
+		clockInterval = setInterval(clock, 1000);	
+	}
 }
 
 function renderUI() {
 	context.globalAlpha = 1;
 	context.fillStyle = STYLE;
-	context.fillRect(0, 0, 100, 100);
+	// context.fillRect(0, 0, 100, 100);
 
-	context.textAlign = ALIGN;
-	context.font = FONT;
-	context.fillText(LIVESTEXT + lives, canvas.width / 2, canvas.height / 10);
+	if (canTouch) {
+		context.textAlign = ALIGN;
+		context.font = FONT;
+		context.fillText(LIVESTEXT + lives, canvas.width / 2, canvas.height / 10);
+		context.fillText(TIMETEXT + time, canvas.width / 2, canvas.height / 6);		
+	}
 }
 
 function touch() {
 	wx.onTouchStart((res) => {
+		if (!canTouch) {
+			return;
+		}
 		for (let i = 0; i < res.touches.length; i++) {
 			getResult(res.touches[i].clientX, res.touches[i].clientY);					
 		}
@@ -118,7 +152,7 @@ function getResult(x, y) {
 
 		STYLE = (STYLE === 'white' ? 'red' : 'white');
 
-		tempAlpha = 1;
+		reset();
 		return;
 	}
 
@@ -129,10 +163,6 @@ function getResult(x, y) {
 	// }
 
 	lives--;
-
-	if (lives <= 0) {
-		reset();
-	}
 }
 
 function visible() {
@@ -142,4 +172,6 @@ function visible() {
 function reset() {
 	visible();
 	lives = TOUCHNUMS;
+	resetClock();
+	canTouch =  false;
 }
