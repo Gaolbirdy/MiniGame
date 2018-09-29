@@ -26,7 +26,7 @@ export default class Face {
 	update() {
 		// this.onEvent();
 		
-		// this.move();
+		this.move();
 		requestAnimationFrame(this.update.bind(this));
 	}
 

@@ -5,7 +5,7 @@ import Face from './js/face';
 const DEBUGMODE = false;
 
 // 时间限制开关
-let timeLimit = false;
+let timeLimit = true;
 // 触摸资源限制开关
 let livesLimit = true;
 // 仅单指触摸开关
@@ -175,6 +175,9 @@ function renderUI() {
 function touch() {
 	let lastTouchID = NaN;
 
+	wx.offTouchStart();
+	wx.offTouchEnd();
+	wx.offTouchMove();
 
 	wx.onTouchStart(touchStart);
 	wx.onTouchEnd(onTouchEnd);
