@@ -11,6 +11,32 @@ export default class Face {
 		this.reHeight = 1;
 		// this.reX = this.x - this.reWidth / 2;
 		// this.reY = this.y - this.reHeight / 2;
+
+		this.start();
+		this.update();
+		this.b = false;
+	}
+
+	start() {
+		wx.onTouchStart(() => {
+			this.b = true;
+			console.log(1)
+		});
+	}
+
+	update() {
+		this.onEvent();
+		
+		this.move();
+		requestAnimationFrame(this.update.bind(this));
+	}
+
+	onEvent() {
+		this.onTouchStart();				
+	}
+
+	onTouchStart() {
+		this.b ? console.log('touched') : 0;
 	}
 
 	move() {

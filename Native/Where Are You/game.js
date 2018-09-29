@@ -1,7 +1,7 @@
 import './js/libs/weapp-adapter';
 import Face from './js/face';
 
-const DEBUGMODE = false;
+const DEBUGMODE = true;
 const FACEIMGSRC = 'images/test.png';
 const FACEIMGSIZE = 1;
 const ALPHASTEP = 1 / (60 * 2);
@@ -27,6 +27,7 @@ let clockInterval;
 
 function debugArea() {
 	console.log('DEBUGMODE');
+
 };
 
 
@@ -80,7 +81,7 @@ function loop() {
 }
 
 function update() {
-	face.move();
+	// face.move();
 
 	if (lives <= 0 || time <= 0) {
 		reset();
