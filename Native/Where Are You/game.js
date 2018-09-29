@@ -16,7 +16,7 @@ let canTouchMove = true;
 let canTouchClick = false;
 
 const FACEIMGSRC = 'images/test.png';
-const FACEIMGSIZE = 1;
+const FACEIMGSIZE = 0.65;
 const ALPHASTEP = 1 / (60 * 2);
 const TOUCHAREA = 0;
 const TOUCHNUMS = 999;
