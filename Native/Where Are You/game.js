@@ -1,13 +1,26 @@
 import './js/libs/weapp-adapter';
 import Face from './js/face';
 
-const DEBUGMODE = true;
+// debug开关
+const DEBUGMODE = false;
+
+// 时间限制开关
+let timeLimit = false;
+// 触摸资源限制开关
+let livesLimit = true;
+// 仅单指触摸开关
+let singleTouch = true;
+// 可划动手势开关
+let canTouchMove = true;
+// 可点触单击开头
+let canTouchClick = false;
+
 const FACEIMGSRC = 'images/test.png';
 const FACEIMGSIZE = 1;
 const ALPHASTEP = 1 / (60 * 2);
 const TOUCHAREA = 0;
-const TOUCHNUMS = 40;
-const TIME = 3;
+const TOUCHNUMS = 999;
+const TIME = 5;
 
 const ALIGN = 'center';
 const FONT = '25px Arial';
@@ -23,6 +36,7 @@ let time = TIME;
 let tempAlpha = 1;
 let canTouch = false;
 let clockInterval;
+let isGameOver = false;
 
 
 function debugArea() {
@@ -51,7 +65,7 @@ function init() {
 	};
 	image.src = FACEIMGSRC;
 
-	touch();
+	reset();
 }
 
 function resize() {
@@ -81,10 +95,35 @@ function loop() {
 }
 
 function update() {
-	// face.move();
+	gameOver();
+}
 
-	if (lives <= 0 || time <= 0) {
+function gameOver() {
+	if (isGameOver) {
 		reset();
+		return;
+	}
+
+	if (timeLimit) {
+		checkTime();
+	}
+
+	if (livesLimit) {
+		checkLives();
+	}
+}
+
+// 时间限制
+function checkTime() {
+	if (time <= 0) {
+		isGameOver = true;
+	}
+}
+
+// 资源限制
+function checkLives() {
+	if (lives <= 0) {
+		isGameOver = true;
 	}
 }
 
@@ -122,32 +161,81 @@ function renderUI() {
 	if (canTouch) {
 		context.textAlign = ALIGN;
 		context.font = FONT;
-		context.fillText(LIVESTEXT + lives, canvas.width / 2, canvas.height / 10);
-		context.fillText(TIMETEXT + time, canvas.width / 2, canvas.height / 6);		
+		
+		if (livesLimit) {
+			context.fillText(LIVESTEXT + lives, canvas.width / 2, canvas.height / 10);
+		}
+
+		if (timeLimit) {
+			context.fillText(TIMETEXT + time, canvas.width / 2, canvas.height / 6);		
+		}
 	}
 }
 
 function touch() {
-	wx.onTouchStart((res) => {
+	let lastTouchID = NaN;
+
+
+	wx.onTouchStart(touchStart);
+	wx.onTouchEnd(onTouchEnd);
+
+	if (canTouchMove) {
+		wx.onTouchMove(onTouchMove);
+	}
+
+	function touchStart(res) {
 		if (!canTouch) {
 			return;
 		}
-		for (let i = 0; i < res.touches.length; i++) {
-			getResult(res.touches[i].clientX, res.touches[i].clientY);					
+		
+		if (singleTouch) {
+			lastTouchID = res.touches[0].identifier;
+
+			wx.offTouchStart();
 		}
-	});
 
-	// wx.onTouchEnd((res) => {
-	// });
+		if (canTouchClick) {
+			for (let i = 0; i < res.touches.length; i++) {
+				// console.log(res.touches[i].identifier)
 
-	wx.onTouchMove((res) => {
+				getResult(res.touches[i].clientX, res.touches[i].clientY);
+			}
+		}
+	}
+
+	function onTouchEnd(res) {
 		if (!canTouch) {
 			return;
+		}
+
+		if (singleTouch) {
+
+			if (lastTouchID === res.changedTouches[0].identifier) {
+				wx.onTouchStart(touchStart);
+			}
+		}
+	}
+
+	function onTouchMove(res) {
+		if (!canTouch) {
+			return;
+		}
+
+		if (singleTouch) {
+			if (lastTouchID !== res.changedTouches[0].identifier) {
+				return;
+			}
 		}
 
 		for (let i = 0; i < res.changedTouches.length; i++) {
+			// console.log(res.changedTouches[i].identifier)
+
 			getResult(res.changedTouches[i].clientX, res.changedTouches[i].clientY);
-		}
+		}	
+	}
+
+	wx.onTouchCancel(() => {
+		wx.onTouchStart(touchStart);
 	});
 }
 
@@ -180,4 +268,6 @@ function reset() {
 	lives = TOUCHNUMS;
 	resetClock();
 	canTouch =  false;
+	isGameOver = false;
+	touch();	
 }

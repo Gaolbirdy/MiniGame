@@ -20,14 +20,13 @@ export default class Face {
 	start() {
 		wx.onTouchStart(() => {
 			this.b = true;
-			console.log(1)
 		});
 	}
 
 	update() {
-		this.onEvent();
+		// this.onEvent();
 		
-		this.move();
+		// this.move();
 		requestAnimationFrame(this.update.bind(this));
 	}
 
