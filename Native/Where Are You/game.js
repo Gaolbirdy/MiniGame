@@ -7,7 +7,7 @@ const DEBUGMODE = false;
 // 时间限制开关
 let timeLimit = true;
 // 触摸资源限制开关
-let livesLimit = true;
+let livesLimit = false;
 // 仅单指触摸开关
 let singleTouch = true;
 // 可划动手势开关
@@ -23,9 +23,10 @@ const TOUCHNUMS = 999;
 const TIME = 5;
 
 const ALIGN = 'center';
-const FONT = '25px Arial';
+const FONT = '18px Arial';
 const LIVESTEXT = '触摸资源: ';
-const TIMETEXT = '时间: ';
+const TIMETEXT = '!! 划动屏幕抓它，时间: ';
+const INFOTEXT = '它完全隐身后，才能触摸';
 
 let STYLE = 'white';
 let context = canvas.getContext('2d');
@@ -158,9 +159,12 @@ function renderUI() {
 	context.fillStyle = STYLE;
 	// context.fillRect(0, 0, 100, 100);
 
+	context.textAlign = ALIGN;
+	context.font = FONT;
+	context.fillText(INFOTEXT, canvas.width / 2, canvas.height / 10);	
+
 	if (canTouch) {
-		context.textAlign = ALIGN;
-		context.font = FONT;
+
 		
 		if (livesLimit) {
 			context.fillText(LIVESTEXT + lives, canvas.width / 2, canvas.height / 10);
