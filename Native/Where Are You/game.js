@@ -16,6 +16,7 @@ let canTouchMove = true;
 let canTouchClick = false;
 
 const FACEIMGSRC = 'images/test.png';
+const BGIMGSRC = 'images/bg.jpg';
 const FACEIMGSIZE = 0.65;
 const ALPHASTEP = 1 / (60 * 2);
 const TOUCHAREA = 0;
@@ -31,6 +32,7 @@ const INFOTEXT = '它完全隐身后，才能触摸';
 let STYLE = 'white';
 let context = canvas.getContext('2d');
 let image = wx.createImage();
+let bgImg = wx.createImage();
 let face = new Face();
 let lives = TOUCHNUMS;
 let time = TIME;
@@ -39,6 +41,8 @@ let canTouch = false;
 let clockInterval;
 let isGameOver = false;
 
+let alpha = 1;
+let alphaPoints = [];
 
 function debugArea() {
 	console.log('DEBUGMODE');
@@ -60,6 +64,11 @@ function begin() {
 }
 
 function init() {
+	bgImg.onload = function () {
+
+	};
+	bgImg.src = BGIMGSRC;
+
 	image.onload = function () {
 		resize();
 		render();
@@ -130,6 +139,20 @@ function checkLives() {
 
 function render() {
 	context.clearRect(0, 0, canvas.width, canvas.height);
+
+	context.drawImage(bgImg, 0, 0, canvas.width, canvas.height);
+	if (canTouch) {
+		context.beginPath();
+		context.fillStyle = 'rgba(0, 0, 0, 1)';
+		context.fillRect(0, 0, canvas.width, canvas.height);		
+
+		context.fillStyle = `rgba(255, 0, 0, ${alpha})`;
+		if (alphaPoints.length > 0) {
+			for (let i = 0; i < alphaPoints.length; i++) {
+				context.fillRect(alphaPoints[i][0], alphaPoints[i][1], 20, 20);
+			}
+		}	
+	}
 
 	context.beginPath();
 	fadeOut();	
@@ -208,7 +231,7 @@ function touch() {
 				getResult(res.touches[i].clientX, res.touches[i].clientY);
 			}
 		}
-	}
+			}
 
 	function onTouchEnd(res) {
 		if (!canTouch) {
@@ -238,7 +261,10 @@ function touch() {
 			// console.log(res.changedTouches[i].identifier)
 
 			getResult(res.changedTouches[i].clientX, res.changedTouches[i].clientY);
-		}	
+		}
+
+		alphaPoints.push([res.touches[0].clientX, res.touches[0].clientY]);
+			
 	}
 
 	wx.onTouchCancel(() => {
@@ -276,5 +302,6 @@ function reset() {
 	resetClock();
 	canTouch =  false;
 	isGameOver = false;
-	touch();	
+	touch();
+	alphaPoints = [];
 }
