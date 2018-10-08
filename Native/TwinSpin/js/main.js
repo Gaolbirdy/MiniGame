@@ -1,4 +1,5 @@
 import Player from './player/player';
+import DataBus from './databus';
 
 
 const FRAMES_PER_SECOND = 60;
@@ -6,6 +7,7 @@ const SECOND = 1000;
 
 const canvas = wx.createCanvas();
 const ctx = canvas.getContext('2d');
+let databus = new DataBus();
 
 
 export default class Main {
@@ -25,7 +27,8 @@ export default class Main {
 	}
 
 	loop() {
-		console.log(1); 
+		databus.frame++;
+		console.log(databus.frame); 
 
 		this.update();
 		this.render();
