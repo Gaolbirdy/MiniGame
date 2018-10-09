@@ -1,8 +1,8 @@
-import Player from './player/player';
 import DataBus from './databus';
+import Arm from './player/arm';
 
 
-const FRAMES_PER_SECOND = 60;
+const FRAMES_PER_SECOND = 30;
 const SECOND = 1000;
 
 const canvas = wx.createCanvas();
@@ -18,7 +18,7 @@ export default class Main {
 	}
 
 	init() {
-		this.player = new Player();
+		this.arm = new Arm();
 
 		this.bindLoop = this.loop.bind(this);
 
@@ -28,19 +28,22 @@ export default class Main {
 
 	loop() {
 		databus.frame++;
-		console.log(databus.frame); 
+		// console.log(databus.frame); 
 
 		this.update();
 		this.render();
 	}
 
 	update() {
+		this.arm.update();
 
 	}
 
 	render() {
 		ctx.clearRect(0, 0, canvas.width, canvas.height);
 		
-		this.player.drawToCanvas(ctx);
+		this.arm.drawToCanvas(ctx);
+		this.arm.blueBall.drawToCanvas(ctx);
+		this.arm.redbBll.drawToCanvas(ctx);
 	}
 }

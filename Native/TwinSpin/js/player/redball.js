@@ -15,6 +15,8 @@ export default class RedBall extends Sprite {
 		// 玩家默认处于屏幕底部居中位置
 		this.x = screenWidth / 4 - this.width / 2;
 		this.y = screenHeight - this.height - 30;
+
+		this.parent = null;
 	}
 
 	start() {
@@ -22,7 +24,7 @@ export default class RedBall extends Sprite {
 	}
 
 	update() {
-
+		
+		this.y = this.parent.y;
 	}
-
 }
