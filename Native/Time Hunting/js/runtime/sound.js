@@ -30,6 +30,8 @@ export default class Sound {
 			'audio/8.wav',
 			'audio/9.wav'
 		];
+
+		this.playBgm();
     }
 
     playStart(timeGoal) {
