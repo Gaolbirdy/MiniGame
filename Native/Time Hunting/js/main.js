@@ -84,7 +84,7 @@ export default class Main {
 	}
 
 	init() {
-		this.bg = new BackGround();
+		this.bg = new BackGround(canvas);
 		this.gameInfo = new GameInfo();
 		this.sound = new Sound();
 		this.onTouch();
